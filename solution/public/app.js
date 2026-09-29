@@ -170,12 +170,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (field === state.sortBy) {
         iconSpan.textContent = state.sortOrder === 'asc' ? ' ▲' : ' ▼';
-        iconSpan.className = 'sort-icon text-[#fdcf41] font-bold ml-1';
-        header.classList.add('bg-[#0353b4]');
+        header.classList.add('is-sorted');
       } else {
         iconSpan.textContent = ' ⇅';
-        iconSpan.className = 'sort-icon text-slate-300 ml-1';
-        header.classList.remove('bg-[#0353b4]');
+        header.classList.remove('is-sorted');
       }
     });
   }

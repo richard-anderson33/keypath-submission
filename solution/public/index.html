@@ -75,20 +75,37 @@
       transform: translateY(-1px);
     }
 
-    /* Custom scrollbar */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
+    /* Table Header Sorting States & Anti-White Glitch Protection */
+    th.sort-header {
+      background-color: #00264d !important;
+      color: #ffffff !important;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
     }
-    ::-webkit-scrollbar-track {
-      background: #f1f5f9;
+    th.sort-header:hover {
+      background-color: #0353b4 !important;
+      color: #ffffff !important;
     }
-    ::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 3px;
+    th.sort-header:active,
+    th.sort-header:focus {
+      background-color: #0353b4 !important;
+      color: #ffffff !important;
+      outline: none !important;
     }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #94a3b8;
+    th.sort-header.is-sorted {
+      background-color: #0353b4 !important;
+      color: #ffffff !important;
+      box-shadow: inset 0 -3px 0 0 #fdcf41 !important;
+    }
+    th.sort-header .sort-icon {
+      color: #cbd5e1 !important;
+      margin-left: 0.25rem;
+    }
+    th.sort-header.is-sorted .sort-icon {
+      color: #fdcf41 !important;
+      font-weight: 800 !important;
     }
   </style>
 </head>
@@ -359,6 +376,6 @@
     </div>
   </footer>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=20260929"></script>
 </body>
 </html>
