@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
-const fs = require('fs');
 
 const {
   CircuitBreaker,
@@ -238,6 +237,10 @@ app.get('/api/records', (req, res) => {
   const page = Math.max(1, parseInt(req.query.page, 10) || 1);
   const pageSize = Math.max(1, Math.min(100, parseInt(req.query.pageSize, 10) || 5));
 
+  // Whitelist all user-controlled query params to prevent injection
+  const safeMatchType = ['contains', 'equals'].includes(matchType) ? matchType : 'contains';
+  const safeSortOrder = ['asc', 'desc'].includes(sortOrder) ? sortOrder : 'desc';
+
   let filtered = [...recordsStore];
   const queryTerm = search.trim();
 
@@ -248,7 +251,7 @@ app.get('/api/records', (req, res) => {
     filtered = filtered.filter(item => {
       const target = item.stringValue.toLowerCase();
       const term = queryTerm.toLowerCase();
-      return matchType === 'equals' ? target === term : target.includes(term);
+      return safeMatchType === 'equals' ? target === term : target.includes(term);
     });
   }
 
@@ -263,8 +266,8 @@ app.get('/api/records', (req, res) => {
     if (typeof valA === 'string') valA = valA.toLowerCase();
     if (typeof valB === 'string') valB = valB.toLowerCase();
 
-    if (valA < valB) return sortOrder === 'asc' ? -1 : 1;
-    if (valA > valB) return sortOrder === 'asc' ? 1 : -1;
+    if (valA < valB) return safeSortOrder === 'asc' ? -1 : 1;
+    if (valA > valB) return safeSortOrder === 'asc' ? 1 : -1;
     return 0;
   });
 
@@ -282,7 +285,7 @@ app.get('/api/records', (req, res) => {
     totalPages,
     searchApplied: isSearchActive,
     searchQuery: isSearchActive ? queryTerm : null,
-    matchType,
+    matchType: safeMatchType,
     correlationId: req.correlationId
   });
 });

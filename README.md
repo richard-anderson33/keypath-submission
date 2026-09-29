@@ -8,13 +8,17 @@ This repository contains the complete submission package for the **Keypath Lead 
 
 ```
 Keypath/
-├── EXERCISE_REQUIREMENTS.md            # Transcribed prompt, givens, & rules from prompt images
+├── .gitignore
+├── EXERCISE_REQUIREMENTS.md            # Transcribed prompt, givens, & rules from exercise PDF
 ├── DESIGN_EXERCISE_SMS_ARCHITECTURE.md # Part 1: SMS Queue Architecture & Azure System Design
 ├── EXECUTION_PLAN_AND_SETUP.md         # Setup instructions, prerequisites, & execution roadmap
 ├── AI_PROMPTS_AND_METHODOLOGY.md       # AI methodology & prompt log (as requested by Keypath)
 └── solution/                           # Part 2: Working Web API & Single Page Application (SPA)
     ├── package.json
-    ├── server.js                        # Express Web API (Multi-format ingestion, sorting, pagination)
+    ├── server.js                        # Express Web API (Ingestion, search, sorting, pagination)
+    ├── resilience.js                    # Circuit Breaker, Exponential Backoff, Idempotency Engine
+    ├── security.js                      # XSS sanitization, CSP headers, rate limiter, correlation IDs
+    ├── test.js                          # 15 unit & integration tests (npm test)
     └── public/
         ├── index.html                  # Responsive Single Page Application UI
         └── app.js                      # Client-side state, 3-char search, sorting, & API runner
@@ -70,11 +74,11 @@ Keypath/
 
 Implemented enterprise-grade resilience, zero-trust security, and observability patterns expected of a 12+ year Senior/Lead Software Developer:
 
-1. **Polly-Style Resilience Engine ([`resilience.js`](file:///c:/Users/titan/Downloads/Interviews/Keypath/solution/resilience.js)):**
+1. **Polly-Style Resilience Engine ([`resilience.js`](./solution/resilience.js)):**
    - **Exponential Backoff with Full Jitter:** Mitigates the "thundering herd" problem when retrying against degraded services.
    - **3-State Circuit Breaker (`CLOSED`, `OPEN`, `HALF_OPEN`):** Fails fast during downstream vendor outages to protect system resources and recover automatically.
    - **Idempotency Guarantees:** Supports `Idempotency-Key` headers on `/api/records/ingest` to eliminate duplicate records during at-least-once message delivery retries.
-2. **Defense-in-Depth Security ([`security.js`](file:///c:/Users/titan/Downloads/Interviews/Keypath/solution/security.js)):**
+2. **Defense-in-Depth Security ([`security.js`](./solution/security.js)):**
    - **Input Sanitization & XSS Defense:** Neutralizes script injections and escapes HTML entities on all ingestion paths.
    - **Prototype Pollution Guard:** Intercepts and rejects malicious objects containing `__proto__`, `constructor`, or `prototype`.
    - **Enterprise Security Headers:** Zero-dependency implementation of CSP, HSTS, X-Content-Type-Options (`nosniff`), and X-Frame-Options (`DENY`).
@@ -83,14 +87,14 @@ Implemented enterprise-grade resilience, zero-trust security, and observability 
    - **Probes:** `/healthz` (liveness), `/readyz` (readiness with circuit breaker health), and `/api/diagnostics`.
    - **Distributed Tracing:** Propagates `X-Request-ID` correlation IDs across all request/response lifecycles.
    - **Graceful Shutdown:** Intercepts `SIGTERM`/`SIGINT` to cleanly drain active connections before container termination.
-4. **Comprehensive Automated Test Suite ([`test.js`](file:///c:/Users/titan/Downloads/Interviews/Keypath/solution/test.js)):**
+4. **Comprehensive Automated Test Suite ([`test.js`](./solution/test.js)):**
    - 15 unit and integration tests covering resilience state transitions, transient retry discrimination, sanitization, idempotency, and REST endpoints. Run with `npm test`.
 
 ---
 
 ## 📐 System Design Overview (Part 1 Requirements)
 
-Please review [`DESIGN_EXERCISE_SMS_ARCHITECTURE.md`](file:///c:/Users/titan/Downloads/Interviews/Keypath/DESIGN_EXERCISE_SMS_ARCHITECTURE.md) for the full technical specification.
+Please review [`DESIGN_EXERCISE_SMS_ARCHITECTURE.md`](./DESIGN_EXERCISE_SMS_ARCHITECTURE.md) for the full technical specification.
 
 * **Buffer:** Azure Service Bus Queue (`sms-messages-queue`).
 * **Compute:** Azure Functions (C# .NET 8 Isolated Worker Model) with auto-scaling based on queue depth.

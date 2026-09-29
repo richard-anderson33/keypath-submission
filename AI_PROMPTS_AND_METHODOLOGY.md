@@ -93,9 +93,9 @@ graph TD
 > ```
 >
 > **Engineering Outcome:**
-> * Created [`solution/resilience.js`](file:///c:/Users/titan/Downloads/Interviews/Keypath/solution/resilience.js) containing `CircuitBreaker`, `executeWithRetry`, and `IdempotencyStore`.
+> * Created [`solution/resilience.js`](./solution/resilience.js) containing `CircuitBreaker`, `executeWithRetry`, and `IdempotencyStore`.
 > * Simulated downstream dispatch pipeline directly within the Part 2 solution API.
-> * Implemented 100% automated test coverage in [`solution/test.js`](file:///c:/Users/titan/Downloads/Interviews/Keypath/solution/test.js) verifying retry execution logs, transient error discrimination, circuit trips, fast-fails, and half-open healing.
+> * Implemented 100% automated test coverage in [`solution/test.js`](./solution/test.js) verifying retry execution logs, transient error discrimination, circuit trips, fast-fails, and half-open healing.
 
 ---
 
@@ -113,9 +113,9 @@ graph TD
 > ```
 >
 > **Engineering Outcome:**
-> * Created [`solution/security.js`](file:///c:/Users/titan/Downloads/Interviews/Keypath/solution/security.js) delivering zero-dependency security hardening.
+> * Created [`solution/security.js`](./solution/security.js) delivering zero-dependency security hardening.
 > * Added prototype pollution guard, XSS HTML escaping, sliding-window rate limiter, and security headers.
-> * Verified security protections with dedicated unit tests in [`solution/test.js`](file:///c:/Users/titan/Downloads/Interviews/Keypath/solution/test.js).
+> * Verified security protections with dedicated unit tests in [`solution/test.js`](./solution/test.js).
 
 ---
 
@@ -132,7 +132,7 @@ graph TD
 > ```
 >
 > **Engineering Outcome:**
-> * Added `/healthz`, `/readyz`, and `/api/diagnostics` endpoints to [`solution/server.js`](file:///c:/Users/titan/Downloads/Interviews/Keypath/solution/server.js).
+> * Added `/healthz`, `/readyz`, and `/api/diagnostics` endpoints to [`solution/server.js`](./solution/server.js).
 > * Added connection draining handlers with a 5-second forced-kill timeout.
 
 ---
@@ -186,4 +186,4 @@ ok 15 - HTTP: POST /api/records/reset restores seed records and clears caches
 
 1. **Strategic Intent:** AI was directed using senior engineering patterns (Little's Law, Circuit Breaker, STRIDE security, Idempotency) to produce enterprise-grade deliverables.
 2. **Beyond Scope:** Addressed critical production risks (thundering herds, downstream vendor outages, prototype pollution, injection attacks, at-least-once duplicate delivery) that standard interview submissions overlook.
-3. **Rigorous Validation:** Every requirement is backed by deterministic automated test assertions in [`solution/test.js`](file:///c:/Users/titan/Downloads/Interviews/Keypath/solution/test.js).
+3. **Rigorous Validation:** Every requirement is backed by deterministic automated test assertions in [`solution/test.js`](./solution/test.js).

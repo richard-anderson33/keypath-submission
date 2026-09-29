@@ -1,4 +1,4 @@
-const test = require('node:test');
+const { test, before, after } = require('node:test');
 const assert = require('node:assert');
 const http = require('node:http');
 
@@ -14,7 +14,28 @@ const {
   hasPrototypePollution
 } = require('./security');
 
-const BASE_URL = process.env.TEST_URL || 'http://localhost:3000';
+const { app } = require('./server');
+
+let testServer = null;
+let BASE_URL = process.env.TEST_URL || null;
+
+before(async () => {
+  if (!BASE_URL) {
+    await new Promise((resolve) => {
+      testServer = app.listen(0, () => {
+        const port = testServer.address().port;
+        BASE_URL = `http://localhost:${port}`;
+        resolve();
+      });
+    });
+  }
+});
+
+after(async () => {
+  if (testServer) {
+    await new Promise((resolve) => testServer.close(resolve));
+  }
+});
 
 function makeRequest(path, options = {}, body = null) {
   return new Promise((resolve, reject) => {
