@@ -300,3 +300,13 @@ resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
 | **Azure SQL DB** | Serverless / General Purpose | ~$5.00 / month (or free 32GB offer) | Yes |
 | **Application Insights** | Basic | $0.00 (First 5 GB data ingestion free) | Yes |
 | **Total Estimated Cost** | - | **<$5.00 / month** | **100% covered by Azure Free Account** |
+
+---
+
+## 8. Working Implementation Cross-Reference
+
+The retry algorithms, exponential backoff with full jitter, circuit breaker state machine, and idempotency deduplication specified in this design are implemented and verified in the Part 2 codebase:
+* **Resilience Engine:** [`solution/resilience.js`](file:///c:/Users/titan/Downloads/Interviews/Keypath/solution/resilience.js) (CircuitBreaker class, executeWithRetry with full jitter, IdempotencyStore).
+* **Security & Observability:** [`solution/security.js`](file:///c:/Users/titan/Downloads/Interviews/Keypath/solution/security.js) (Zero-trust input sanitization, prototype pollution defense, sliding-window rate limiting, and correlation ID tracing).
+* **Automated Test Suite:** [`solution/test.js`](file:///c:/Users/titan/Downloads/Interviews/Keypath/solution/test.js) (Unit tests verifying retry loops, circuit breaker transitions, and idempotency guarantees).
+

@@ -26,9 +26,12 @@
           <p class="text-xs text-slate-400">Lead Software Developer Assessment &mdash; Part 2 Web API & SPA Solution</p>
         </div>
       </div>
-      <div class="flex items-center space-x-3">
-        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-          <i class="fa-solid fa-circle-check text-[10px] mr-1.5"></i> Azure-Ready
+      <div class="flex flex-wrap items-center gap-2">
+        <span id="badgeBreaker" class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" title="Circuit Breaker Status">
+          <i class="fa-solid fa-shield-halved text-[10px] mr-1.5"></i> Circuit Breaker: CLOSED
+        </span>
+        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20" title="Zero-Trust Input Sanitization & CSP">
+          <i class="fa-solid fa-lock text-[10px] mr-1.5"></i> Hardened
         </span>
         <button id="btnResetSeed" class="px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-md transition border border-slate-700">
           <i class="fa-solid fa-rotate-right mr-1.5"></i> Reset Seed Data

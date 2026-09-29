@@ -66,6 +66,28 @@ Keypath/
 
 ---
 
+## 🛡️ Senior / Lead Level Engineering (Beyond Submission Scope)
+
+Implemented enterprise-grade resilience, zero-trust security, and observability patterns expected of a 12+ year Senior/Lead Software Developer:
+
+1. **Polly-Style Resilience Engine ([`resilience.js`](file:///c:/Users/titan/Downloads/Interviews/Keypath/solution/resilience.js)):**
+   - **Exponential Backoff with Full Jitter:** Mitigates the "thundering herd" problem when retrying against degraded services.
+   - **3-State Circuit Breaker (`CLOSED`, `OPEN`, `HALF_OPEN`):** Fails fast during downstream vendor outages to protect system resources and recover automatically.
+   - **Idempotency Guarantees:** Supports `Idempotency-Key` headers on `/api/records/ingest` to eliminate duplicate records during at-least-once message delivery retries.
+2. **Defense-in-Depth Security ([`security.js`](file:///c:/Users/titan/Downloads/Interviews/Keypath/solution/security.js)):**
+   - **Input Sanitization & XSS Defense:** Neutralizes script injections and escapes HTML entities on all ingestion paths.
+   - **Prototype Pollution Guard:** Intercepts and rejects malicious objects containing `__proto__`, `constructor`, or `prototype`.
+   - **Enterprise Security Headers:** Zero-dependency implementation of CSP, HSTS, X-Content-Type-Options (`nosniff`), and X-Frame-Options (`DENY`).
+   - **Sliding-Window Rate Limiter:** Protects endpoints from burst DoS attacks (emits `429 Too Many Requests` with `Retry-After`).
+3. **Cloud-Native Observability & Operability:**
+   - **Probes:** `/healthz` (liveness), `/readyz` (readiness with circuit breaker health), and `/api/diagnostics`.
+   - **Distributed Tracing:** Propagates `X-Request-ID` correlation IDs across all request/response lifecycles.
+   - **Graceful Shutdown:** Intercepts `SIGTERM`/`SIGINT` to cleanly drain active connections before container termination.
+4. **Comprehensive Automated Test Suite ([`test.js`](file:///c:/Users/titan/Downloads/Interviews/Keypath/solution/test.js)):**
+   - 15 unit and integration tests covering resilience state transitions, transient retry discrimination, sanitization, idempotency, and REST endpoints. Run with `npm test`.
+
+---
+
 ## 📐 System Design Overview (Part 1 Requirements)
 
 Please review [`DESIGN_EXERCISE_SMS_ARCHITECTURE.md`](file:///c:/Users/titan/Downloads/Interviews/Keypath/DESIGN_EXERCISE_SMS_ARCHITECTURE.md) for the full technical specification.
