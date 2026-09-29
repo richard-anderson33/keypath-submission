@@ -88,29 +88,29 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       state.records.forEach(item => {
         const row = document.createElement('tr');
-        row.className = 'hover:bg-slate-50/80 transition';
+        row.className = 'hover:bg-[#f3f7fd]/80 transition duration-150';
 
         const submittedOnFormatted = new Date(item.submittedOn).toLocaleString();
         const modifiedOnFormatted = new Date(item.modifiedOn).toLocaleString();
 
         let statusClass = 'bg-slate-100 text-slate-700 border-slate-200';
-        if (item.status === 'Approved') statusClass = 'bg-emerald-50 text-emerald-700 border-emerald-200';
-        if (item.status === 'Active') statusClass = 'bg-sky-50 text-sky-700 border-sky-200';
-        if (item.status === 'Pending') statusClass = 'bg-amber-50 text-amber-700 border-amber-200';
+        if (item.status === 'Approved') statusClass = 'bg-emerald-50 text-emerald-800 border-emerald-300';
+        if (item.status === 'Active') statusClass = 'bg-[#edf4fc] text-[#0353b4] border-[#b9d5f7]';
+        if (item.status === 'Pending') statusClass = 'bg-[#fffbeb] text-[#92400e] border-[#fde68a]';
 
         row.innerHTML = `
-          <td class="px-6 py-4 font-mono text-xs font-semibold text-slate-500">#${item.id}</td>
-          <td class="px-6 py-4 font-medium text-slate-900">${escapeHtml(item.stringValue)}</td>
-          <td class="px-6 py-4 text-xs font-medium text-slate-600">
-            <span class="inline-flex items-center px-2 py-0.5 rounded bg-slate-100 text-slate-700">
+          <td class="px-6 py-4 font-mono text-xs font-bold text-slate-500">#${item.id}</td>
+          <td class="px-6 py-4 font-semibold text-[#00264d]">${escapeHtml(item.stringValue)}</td>
+          <td class="px-6 py-4 text-xs font-semibold text-slate-600">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
               ${escapeHtml(item.category)}
             </span>
           </td>
           <td class="px-6 py-4 text-xs text-slate-500 hidden md:table-cell">${escapeHtml(item.submittedBy)}</td>
-          <td class="px-6 py-4 text-xs text-slate-500 whitespace-nowrap">${submittedOnFormatted}</td>
+          <td class="px-6 py-4 text-xs text-slate-600 whitespace-nowrap">${submittedOnFormatted}</td>
           <td class="px-6 py-4 text-xs text-slate-500 whitespace-nowrap hidden sm:table-cell">${modifiedOnFormatted}</td>
           <td class="px-6 py-4 text-xs text-right whitespace-nowrap">
-            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${statusClass}">
+            <span class="inline-flex items-center px-3 py-0.5 rounded-full text-[11px] font-bold tracking-wider uppercase border ${statusClass}">
               ${escapeHtml(item.status)}
             </span>
           </td>
@@ -141,17 +141,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const qLen = searchInput.value.trim().length;
 
     if (qLen > 0 && qLen < 3) {
-      searchBadge.className = 'text-xs px-2.5 py-1 rounded-full font-medium bg-amber-50 text-amber-700 border border-amber-200';
+      searchBadge.className = 'text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider bg-amber-50 text-amber-800 border border-amber-300';
       searchBadge.textContent = `${3 - qLen} more char(s) needed to search`;
-      searchFeedback.innerHTML = `<span class="text-amber-600 font-medium"><i class="fa-solid fa-circle-info mr-1"></i> Input contains ${qLen} char(s). Search activates at 3 chars.</span>`;
+      searchFeedback.innerHTML = `<span class="text-amber-700 font-medium"><i class="fa-solid fa-circle-info mr-1"></i> Input contains ${qLen} char(s). Search activates at 3 chars.</span>`;
       btnClearSearch.classList.remove('hidden');
     } else if (searchApplied) {
-      searchBadge.className = 'text-xs px-2.5 py-1 rounded-full font-medium bg-emerald-50 text-emerald-700 border border-emerald-200';
+      searchBadge.className = 'text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-300';
       searchBadge.textContent = `Search Active`;
-      searchFeedback.innerHTML = `<span class="text-emerald-700 font-medium"><i class="fa-solid fa-check-circle mr-1"></i> Filtered by: <strong>"${escapeHtml(searchQuery)}"</strong> (${state.matchType.toUpperCase()})</span>`;
+      searchFeedback.innerHTML = `<span class="text-[#0353b4] font-medium"><i class="fa-solid fa-check-circle mr-1 text-emerald-600"></i> Filtered by: <strong>"${escapeHtml(searchQuery)}"</strong> (${state.matchType.toUpperCase()})</span>`;
       btnClearSearch.classList.remove('hidden');
     } else {
-      searchBadge.className = 'text-xs px-2.5 py-1 rounded-full font-medium bg-slate-100 text-slate-600 border border-slate-200';
+      searchBadge.className = 'text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider bg-slate-100 text-slate-600 border border-slate-200';
       searchBadge.textContent = `Min 3 characters required`;
       searchFeedback.innerHTML = `<span>Showing all records (unfiltered)</span>`;
       btnClearSearch.classList.add('hidden');
@@ -170,12 +170,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (field === state.sortBy) {
         iconSpan.textContent = state.sortOrder === 'asc' ? ' ▲' : ' ▼';
-        iconSpan.className = 'sort-icon text-amber-600 font-bold ml-1';
-        header.classList.add('bg-amber-500/10');
+        iconSpan.className = 'sort-icon text-[#fdcf41] font-bold ml-1';
+        header.classList.add('bg-[#0353b4]');
       } else {
         iconSpan.textContent = ' ⇅';
-        iconSpan.className = 'sort-icon text-slate-400 ml-1';
-        header.classList.remove('bg-amber-500/10');
+        iconSpan.className = 'sort-icon text-slate-300 ml-1';
+        header.classList.remove('bg-[#0353b4]');
       }
     });
   }

@@ -74,7 +74,7 @@ function securityHeadersMiddleware(req, res, next) {
   // Content Security Policy
   res.setHeader(
     'Content-Security-Policy',
-    "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data:; connect-src 'self'"
+    "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://use.typekit.net https://p.typekit.net; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com https://use.typekit.net https://p.typekit.net; img-src 'self' data: https:; connect-src 'self'"
   );
   // Remove Express identification
   res.removeHeader('X-Powered-By');
